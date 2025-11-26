@@ -11,7 +11,7 @@ function App() {
     const [inputAmt, setInputAmt] = useState("");
     const [inputCurrency, setInputCurrency] = useState("USD");
     const [outputCurrency, setOutputCurrency] = useState("USD");
-
+    const [conversionRes, setConversionRes] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -30,7 +30,11 @@ function App() {
             try {
                 setIsLoading(true);
                 setError();
+                if (outputCurrency === inputCurrency) {
+                    return;
+                }
                 const url = `https:/api.frankfurter.app/latest?amount=${inputAmt}&from=${inputCurrency}&to=${outputCurrency}`
+
                 const res = await fetch(
                     url,
                     {signal: controller.signal}
@@ -41,6 +45,7 @@ function App() {
                 }
 
                 const data = await res.json();
+                setConversionRes(data);
                 console.log(data);
 
             } catch (err) {
@@ -67,11 +72,7 @@ function App() {
             />
             <CurrencySelector onSelectCurrency={handleInputCurrency}/>
             <CurrencySelector onSelectCurrency={handleOutputCurrency}/>
-            <p>
-                `Current Input Amount {inputAmt}`
-                `Current Input Currency {inputCurrency}`
-                `Current Output Currency {outputCurrency}`
-            </p>
+            <p>{conversionRes.rates ? `OUTPUT \$${Object.values(conversionRes.rates)[0]} ${outputCurrency}` : ""}</p>
         </div>
     )
 }
