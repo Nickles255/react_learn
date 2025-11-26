@@ -1,42 +1,64 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* General page styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9fafc;
+  color: #333;
+  margin: 20px;
+}
+
+/* Converter container */
+.converter {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+.converter h1 {
   text-align: center;
+  color: #2a5d9f;
+  margin-bottom: 20px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Input fields */
+.converter input, .converter select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Button */
+.converter button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2a5d9f;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.converter button:hover {
+  background-color: #1d4373;
 }
 
-.card {
-  padding: 2em;
+/* Result display */
+.converter .result {
+  margin-top: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: #2a5d9f;
 }
 
-.read-the-docs {
-  color: #888;
+#inputs {
+  display: flex;
+  flex-direction: row;   /* stack items horizontally */
+  gap: 15px;                /* space between child elements */
 }
