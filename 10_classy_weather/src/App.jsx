@@ -35,19 +35,16 @@ function formatDay(dateStr) {
 
 // example of class component
 class App extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {location: "libson",
+        state = {
+            location: "libson",
             isLoading: false,
             displayLocation: '',
             weather: {}
-
         };
-        this.fetchWeather = this.fetchWeather.bind(this);
-    }
 
-    async fetchWeather() {
+    // async fetchWeather() {
+    fetchWeather = async () => {
         console.log('Loading data...')
         try {
             this.setState({isLoading: true});
