@@ -15,16 +15,25 @@ export default function App() {
     }
 
     useEffect(function () {
+        setLocation(localStorage.getItem("location") || "");
+    }, []);
+
+    useEffect(function () {
+            const geoController = new AbortController();
+            const weatherController = new AbortController();
+
             async function fetchWeather() {
                 if (location.length < 2) return setWeather({});
 
                 try {
                     setIsLoading(true);
                     const geoRes = await fetch(
-                        `https://geocoding-api.open-meteo.com/v1/search?name=${location}`
+                        `https://geocoding-api.open-meteo.com/v1/search?name=${location}`,
+                        { signal: geoController.signal }
                     );
                     const geoData = await geoRes.json();
                     console.log(geoData);
+                    if (!geoRes.ok) throw new Error("Something went wrong with fetching geolocation");
 
                     if (!geoData.results) throw new Error("Location not found");
 
@@ -32,8 +41,12 @@ export default function App() {
                     setDisplayLocation(`${name} ${convertToFlag(country_code)}`);
 
                     const weatherRes = await fetch(
-                        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min`
+                        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min`,
+                         { signal: weatherController.signal }
+
                     );
+                    if (!weatherRes.ok) throw new Error("Something went wrong with fetching weather");
+
                     const weatherData = await weatherRes.json();
                     console.log(weatherData.daily);
                     setWeather(weatherData.daily);
