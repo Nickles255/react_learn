@@ -53,6 +53,12 @@ function reducer(state, action) {
             return {...state, status: 'finished',
                 highscore: state.points > state.highscore ? state.points : state.highscore
             };
+        case 'reset':
+            return {
+                ...initialState,
+                questions: state.questions,
+                status: 'ready',
+            };
         default:
             throw new Error('Unknown action');
     }
@@ -75,8 +81,8 @@ export default function App() {
         <div className="app">
             <Header/>
             <Main>
-                {status === 'loading' && <Loader />}
-                {status === 'error' && <Error />}
+                {status === 'loading' && <Loader/>}
+                {status === 'error' && <Error/>}
                 {status === 'ready' &&
                     <StartScreen
                         numQuestions={numQuestions}
@@ -107,6 +113,7 @@ export default function App() {
                 }
                 {status === 'finished' &&
                     <FinishScreen
+                        dispatch={dispatch}
                         points={points}
                         maxPossiblePoints={maxPossiblePoints}
                         highscore={highscore}
