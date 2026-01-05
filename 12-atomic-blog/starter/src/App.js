@@ -1,5 +1,8 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import {faker} from "@faker-js/faker";
+import Button from "./Components/Button";
+import Footer from "./Components/Footer";
+import Header from "./Components/Header";
 
 function createRandomPost() {
     return {
@@ -9,7 +12,7 @@ function createRandomPost() {
 }
 
 // 1) create a context
-const PostContext = createContext();
+export const PostContext = createContext();
 
 function App() {
     const [posts, setPosts] = useState(() =>
@@ -55,13 +58,17 @@ function App() {
             onAddPost: handleAddPost,
             onClearPosts: handleClearPosts,
             onSwitchFakeDarkMode: handleFakeDarkMode,
+            isFakeDark,
             searchQuery,
             setSearchQuery,
         }}>
             <section>
-                <ButtonFakeDarkMode className="btn-fake-dark-mode">
+
+                <Button className="btn-fake-dark-mode">
                     {isFakeDark ? "☀️" : "🌙"}
-                </ButtonFakeDarkMode>
+                < /Button>
+
+                />
                 <Header/>
                 <Main />
                 <Archive />
@@ -69,53 +76,6 @@ function App() {
             </section>
         </PostContext.Provider>
     );
-}
-
-function ButtonFakeDarkMode({children, className}) {
-    const {onSwitchFakeDarkMode} = useContext(PostContext);
-    return (
-                <button
-                    onClick={onSwitchFakeDarkMode}
-                    className={className}
-                >
-                    {children}
-                </button>
-    );
-
-}
-
-function Header() {
-    // 3) Consume conetext value
-    const {onClearPosts} = useContext(PostContext);
-
-    return (
-        <header>
-            <h1>
-                <span>⚛️</span>The Atomic Blog
-            </h1>
-            <div>
-                <Results/>
-                <SearchPosts/>
-                <button onClick={onClearPosts}>Clear posts</button>
-            </div>
-        </header>
-    );
-}
-
-function SearchPosts() {
-    const {searchQuery, setSearchQuery} = useContext(PostContext);
-    return (
-        <input
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search posts..."
-        />
-    );
-}
-
-function Results() {
-    const {posts} = useContext(PostContext);
-    return <p>🚀 {posts.length} atomic posts found</p>;
 }
 
 function Main() {
@@ -210,10 +170,6 @@ function Archive() {
             )}
         </aside>
     );
-}
-
-function Footer() {
-    return <footer>&copy; by The Atomic Blog ✌️</footer>;
 }
 
 export default App;
