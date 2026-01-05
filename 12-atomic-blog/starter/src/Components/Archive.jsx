@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {PostContext} from '../App';
+import {PostContext} from './PostProvider';
 import createRandomPost from "./createRandomPost";
 
 function Archive() {
@@ -18,7 +18,6 @@ function Archive() {
             <button onClick={() => setShowArchive((s) => !s)}>
                 {showArchive ? "Hide archive posts" : "Show archive posts"}
             </button>
-
             {showArchive && (
                 <ul>
                     {posts.map((post, i) => (
