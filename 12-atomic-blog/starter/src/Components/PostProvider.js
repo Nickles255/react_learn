@@ -1,4 +1,4 @@
-import {createContext, useState} from "react";
+import {createContext, useContext, useState} from "react";
 import createRandomPost from "./createRandomPost";
 
 // 1) create a context
@@ -45,4 +45,11 @@ function PostProvider({children}) {
 
 }
 
-export {PostProvider, PostContext};
+function usePosts() {
+    const context = useContext(PostContext);
+    if (context === undefined) throw new Error("usePosts must be used within a PostProvider");
+
+    return context;
+}
+
+export {PostProvider, usePosts};

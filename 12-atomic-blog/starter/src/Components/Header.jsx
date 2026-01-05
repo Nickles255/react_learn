@@ -1,11 +1,11 @@
 import {useContext} from "react";
-import {PostContext} from "./PostProvider";
+import {usePosts} from "./PostProvider";
 import Results from "./Results";
 import SearchPosts from "./SearchPosts";
 
 export default function Header() {
     // 3) Consume conetext value
-    const {onClearPosts} = useContext(PostContext);
+    const {onClearPosts} = usePosts();
 
     return (
         <header>
