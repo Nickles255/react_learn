@@ -6,7 +6,6 @@ import AppLayout from "./pages/AppLayout.jsx";
 import CityList from "./components/CityList.jsx";
 import Login from "./pages/Login.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
-import {useEffect, useState} from "react";
 import CountryList from "./components/CountryList.jsx";
 import City from "./components/City.jsx";
 import Form from "./components/Form.jsx";
@@ -16,8 +15,6 @@ import {CitiesProvider} from "./contexts/CitiesContext.jsx";
 // import Login from "./pages/Login.jsx";
 
 function App() {
-
-
     return (<div>
         <CitiesProvider>
             <BrowserRouter>
