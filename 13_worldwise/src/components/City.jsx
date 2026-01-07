@@ -2,9 +2,9 @@ import {useParams} from "react-router-dom"
 import styles from "./City.module.css";
 import {useEffect} from "react";
 import {useCities} from "../contexts/CitiesContext.jsx";
-import flagemojiToPNG from "../utils/flagemojiToPNG.js";
 import Spinner from "./Spinner.jsx";
 import BackButton from "./BackButton.jsx";
+import FlagImg from "./FlagImg.jsx";
 
 const formatDate = (date) =>
     new Intl.DateTimeFormat("en", {
@@ -26,14 +26,14 @@ function City() {
     if (isLoading) return <Spinner />;
 
     const {cityName, emoji, date, notes} = currentCity;
-    const flag = flagemojiToPNG(emoji);
 
     return (
       <div className={styles.city}>
         <div className={styles.row}>
           <h6>City name</h6>
           <h3>
-            <span>{flag ? <img src={flag} alt="flag" /> : ""}</span> {cityName}
+              <span><FlagImg emoji={emoji} /></span>
+              <span>{cityName}</span>
           </h3>
         </div>
 

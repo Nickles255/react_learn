@@ -1,11 +1,10 @@
 import styles from "./CountryItem.module.css";
-import flagemojiToPNG from "../utils/flagemojiToPNG.js";
+import FlagImg from "./FlagImg.jsx";
 
 function CountryItem({ country }) {
-   const flag = flagemojiToPNG(country.emoji);
     return (
     <li className={styles.countryItem}>
-      <span>{flag ? <img src={flag} alt="flag" /> : ""}</span>
+      <span><FlagImg emoji={country.emoji}/></span>
       <span>{country.country}</span>
     </li>
   );

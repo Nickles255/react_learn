@@ -5,5 +5,5 @@ export default function flagemojiToPNG(flag) {
         .map((char) => String.fromCharCode(char - 127397).toLowerCase())
         .join("");
 
-    return `https://flagcdn.com/24x18/${countryCode}.png`;
+    return countryCode ? `https://flagcdn.com/24x18/${countryCode}.png` : "";
 }
