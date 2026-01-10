@@ -4,11 +4,13 @@ import {MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents} from "reac
 import {useEffect, useState} from "react";
 import {useCities} from "../contexts/CitiesContext.jsx";
 import FlagImg from "./FlagImg.jsx";
+import {useGeolocation} from "../hooks/useGeoLocation.js";
+import Button from "./Button.jsx";
 
 function DetectClick() {
     const navigate = useNavigate();
 
-    useMapEvents ({
+    useMapEvents({
         click: (e) => {
             // console.log(e);
             navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`);
@@ -29,11 +31,14 @@ function UpdateCenter({center}) {
 }
 
 export default function Map() {
-    const navigate = useNavigate();
-    const { cities } = useCities();
-
+    const {cities} = useCities();
     const [mapPosition, setMapPosition] = useState([40, 0])
     const [searchParams] = useSearchParams();
+    const {
+        isLoading: isLoadingPosition,
+        position: geoLocationPosition,
+        getPosition
+    } = useGeolocation();
 
     const mapLat = searchParams.get("lat");
     const mapLng = searchParams.get("lng");
@@ -42,9 +47,22 @@ export default function Map() {
         if (mapLat && mapLng) setMapPosition([mapLat, mapLng]);
     }, [mapLat, mapLng])
 
+    useEffect(() => {
+        if (geoLocationPosition) {
+            setMapPosition([
+                geoLocationPosition.lat,
+                geoLocationPosition.lng
+            ]);
+        }
+    }, [geoLocationPosition])
 
     return (
         <div className={styles.mapContainer}>
+            {!geoLocationPosition &&
+                <Button type="position" onClick={getPosition}>
+                    {isLoadingPosition ? "Loading..." : "Use my location"}
+                </Button>
+            }
             <MapContainer
                 center={mapPosition}
                 zoom={6}
@@ -58,14 +76,14 @@ export default function Map() {
                 {cities.map((city) => (
                     <Marker position={[city.position.lat, city.position.lng]} key={city.id}>
                         <Popup>
-                            <span><FlagImg emoji={city.emoji} /></span>
+                            <span><FlagImg emoji={city.emoji}/></span>
                             <span>{city.cityName}</span>
                         </Popup>
                     </Marker>
                 ))}
 
-                <UpdateCenter center={mapPosition} />
-                <DetectClick />
+                <UpdateCenter center={mapPosition}/>
+                <DetectClick/>
             </MapContainer>
         </div>
     );
