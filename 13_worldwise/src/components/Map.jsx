@@ -4,8 +4,9 @@ import {MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents} from "reac
 import {useEffect, useState} from "react";
 import {useCities} from "../contexts/CitiesContext.jsx";
 import FlagImg from "./FlagImg.jsx";
-import {useGeolocation} from "../hooks/useGeoLocation.js";
 import Button from "./Button.jsx";
+import {useGeolocation} from "../hooks/useGeoLocation.js";
+import {useURLPosition} from "../hooks/useURLPosition.js";
 
 function DetectClick() {
     const navigate = useNavigate();
@@ -40,8 +41,7 @@ export default function Map() {
         getPosition
     } = useGeolocation();
 
-    const mapLat = searchParams.get("lat");
-    const mapLng = searchParams.get("lng");
+    const [mapLat, mapLng] = useURLPosition();
 
     useEffect(() => {
         if (mapLat && mapLng) setMapPosition([mapLat, mapLng]);
