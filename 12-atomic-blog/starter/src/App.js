@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {PostProvider} from "./Components/PostProvider";
+import {PostProvider} from "./contexts/PostProvider";
 import Header from "./Components/Header";
 import Main from "./Components/Main";
 import Archive from "./Components/Archive";

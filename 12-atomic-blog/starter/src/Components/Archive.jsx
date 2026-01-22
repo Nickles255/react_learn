@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {usePosts} from './PostProvider';
+import {usePosts} from '../contexts/PostProvider';
 import createRandomPost from "./createRandomPost";
 
 function Archive() {

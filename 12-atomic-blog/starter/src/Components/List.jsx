@@ -1,5 +1,5 @@
 import React from 'react';
-import {usePosts} from './PostProvider';
+import {usePosts} from '../contexts/PostProvider';
 import Test from "../Test";
 
 function List() {

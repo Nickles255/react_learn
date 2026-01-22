@@ -1,5 +1,5 @@
 import {useState} from "react";
-import { usePosts} from "./PostProvider";
+import { usePosts} from "../contexts/PostProvider";
 
 export default function FormAddPost() {
     const {onAddPost} = usePosts();

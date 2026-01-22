@@ -1,4 +1,4 @@
-import {usePosts} from './PostProvider';
+import {usePosts} from '../contexts/PostProvider';
 
 export default function SearchPosts() {
     const {searchQuery, setSearchQuery} = usePosts();

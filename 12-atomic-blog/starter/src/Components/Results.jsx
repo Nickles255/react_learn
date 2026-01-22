@@ -1,4 +1,4 @@
-import {usePosts} from './PostProvider';
+import {usePosts} from '../contexts/PostProvider';
 
 export default function Results() {
     const {posts} = usePosts();

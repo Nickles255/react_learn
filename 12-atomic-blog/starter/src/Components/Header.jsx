@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {usePosts} from "./PostProvider";
+import {usePosts} from "../contexts/PostProvider";
 import Results from "./Results";
 import SearchPosts from "./SearchPosts";
 

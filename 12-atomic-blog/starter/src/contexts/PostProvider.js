@@ -1,5 +1,5 @@
-import {createContext, useContext, useState} from "react";
-import createRandomPost from "./createRandomPost";
+import {createContext, useContext, useMemo, useState} from "react";
+import createRandomPost from "../Components/createRandomPost";
 
 // 1) create a context
 const PostContext = createContext();
@@ -28,16 +28,19 @@ function PostProvider({children}) {
             )
             : posts;
 
-
-    // 2) Provide value to child components
-    return (
-        <PostContext.Provider value={{
+    const value = useMemo(() => {
+        return {
             posts: searchedPosts,
             onAddPost: handleAddPost,
             onClearPosts: handleClearPosts,
             searchQuery,
             setSearchQuery,
-        }}>
+        };
+    }, [searchedPosts, searchQuery]);
+
+    // 2) Provide value to child components
+    return (
+        <PostContext.Provider value={value}>
             {children}
         </PostContext.Provider>
     );
