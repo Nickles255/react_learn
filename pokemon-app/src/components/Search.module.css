@@ -1,0 +1,25 @@
+.searchRow {
+  display: flex;
+  align-items: center; /* vertically aligns label with input */
+  gap: 0.75rem;
+  flex-wrap: wrap; /* allows stacking on small screens */
+}
+
+.searchLabel {
+  margin: 0; /* remove any default spacing quirks */
+  white-space: nowrap; /* keep label on one line */
+}
+
+/* Optional: make label a fixed width so inputs line up if you add more fields */
+.searchLabel {
+  width: 140px;
+  text-align: right;
+}
+
+/* On small screens, stack neatly */
+@media (max-width: 520px) {
+  .searchLabel {
+    width: auto;
+    text-align: left;
+  }
+}

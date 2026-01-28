@@ -1,0 +1,156 @@
+/* style.css */
+
+/* ---------------------------
+   Design tokens
+---------------------------- */
+:root {
+  --bg: #0b1020;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-2: rgba(255, 255, 255, 0.1);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.72);
+  --border: rgba(255, 255, 255, 0.14);
+
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --radius: 14px;
+
+  --focus: 0 0 0 4px rgba(59, 130, 246, 0.35);
+
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* ---------------------------
+   Base / reset
+---------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--text);
+  line-height: 1.5;
+
+  /* Subtle “premium” background */
+  background:
+    radial-gradient(900px 600px at 15% 10%, rgba(59, 130, 246, 0.35), transparent 60%),
+    radial-gradient(800px 500px at 85% 20%, rgba(236, 72, 153, 0.25), transparent 60%),
+    radial-gradient(800px 700px at 60% 90%, rgba(34, 197, 94, 0.18), transparent 60%),
+    var(--bg);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+label {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------------------------
+   Layout
+   (No assumptions about your markup;
+   this targets typical Vite/React structure)
+---------------------------- */
+#root {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: var(--space-8) var(--space-4);
+}
+
+/* If your App root is a single wrapper div, this gives it a “card” */
+#root > * {
+  width: min(720px, 100%);
+  background: linear-gradient(180deg, var(--surface), rgba(255, 255, 255, 0.03));
+  /*border: 1px solid var(--border);*/
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(1rem, 3vw, 2rem);
+  backdrop-filter: blur(10px);
+}
+
+/* ---------------------------
+   Components (generic)
+---------------------------- */
+
+/* Logo container: works for a simple <div><img/></div> */
+#root img {
+  margin: 0 auto var(--space-6);
+  max-height: 96px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.25));
+}
+
+/* Search row: label + input look good inline and wrap on small screens */
+label[for="searchBox"] {
+  display: inline-block;
+  margin-right: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+/* Input styling */
+#searchBox {
+  width: min(420px, 100%);
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--text);
+  outline: none;
+
+  transition: border-color 160ms ease, box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+#searchBox::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+#searchBox:hover {
+  background: rgba(0, 0, 0, 0.28);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+#searchBox:focus {
+  border-color: rgba(59, 130, 246, 0.65);
+  box-shadow: var(--focus);
+}
+
+/* Make label+input stack nicely on narrow screens */
+@media (max-width: 520px) {
+  label[for="searchBox"] {
+    display: block;
+    margin-right: 0;
+  }
+}
+
+/* Optional: consistent spacing if you have multiple sections */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: var(--space-6) 0;
+}
+
